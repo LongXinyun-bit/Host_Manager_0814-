@@ -1,0 +1,10 @@
+Django==4.2.23
+djangorestframework==3.16.1
+celery==5.5.3
+redis==6.4.0
+cryptography==45.0.6
+django-celery-beat==2.8.1
+django-environ==0.12.0
+ping3==5.1.5
+pytest==8.3.3
+pytest-django==4.9.0 
