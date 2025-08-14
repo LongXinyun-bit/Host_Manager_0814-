@@ -1,7 +1,7 @@
 ## Host Manager（后端 API，Django + Celery）
 
 ### Introduction
-一个简单可靠的主机管理后端，提供城市/机房/主机的增删改查、主机连通性探测（ping）、定时密码轮换与统计、请求耗时统计等能力，开箱即用并附带自动化测试。
+龙心韵写的一个可靠的主机管理后端，提供城市/机房/主机的增删改查、主机连通性探测（ping）、定时密码轮换与统计、请求耗时统计等能力，开箱即用并附带自动化测试。
 
 ### 技术栈
 - Python 3
@@ -32,8 +32,7 @@
    - 创建/更新主机时，使用 `root_password` 明文入参；后端用对称加密写入 `Host.root_password_encrypted`，不会保存明文
    - 定时任务：`hosts.tasks.rotate_all_host_passwords` 随机生成新密码并加密保存（本地 eager 可立即调用；生产由 beat 每 8 小时触发）
    - 加/解密与随机密码工具：`hosts/utils.py`（基于 `cryptography.Fernet`）
-   - 说明：笔试默认要求为“随机轮换并加密记录在库”；如需“SSH 登入目标机实际修改系统密码”，可按需扩展
-
+   
 4) 每天 00:00 按城市和机房维度统计主机数量，并把统计数据写入数据库
    - 定时任务：`hosts.tasks.aggregate_daily_host_counts` 写入 `HostStats`
    - 查询接口：`GET /api/stats/`
